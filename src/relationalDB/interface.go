@@ -1,9 +1,6 @@
-package src
+package relationalDB
 
-import (
-	"database/sql"
-	"fmt"
-)
+import "database/sql"
 
 type IDatabase interface {
 	Insert(list ...interface{}) (err error)
@@ -12,9 +9,6 @@ type IDatabase interface {
 	Exec(query string, args ...interface{}) (r sql.Result, err error)
 	Select(i interface{}, query string, args ...interface{}) (ri []interface{}, err error)
 	SelectOne(holder interface{}, query string, args ...interface{}) (err error)
-	SelectById(holder interface{}, id fmt.Stringer) (err error)
-	SelectOneJoin(holder interface{}, query string, args ...interface{}) (err error)
-	SelectJoin(holder interface{}, query string, args ...interface{}) (err error)
 	Commit() (err error)
 	Rollback() (err error)
 }

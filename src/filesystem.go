@@ -1,16 +1,18 @@
 package src
 
 import (
+	"fmt"
 	"os"
 )
 
+//It will store all the results in analytics/result folder
 type Filesystem struct {
 }
 
-func (fs Filesystem) OpenFile(absFilePath string) *os.File {
-	file, err := os.OpenFile(absFilePath+".txt", os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+func (fs Filesystem) OpenFile(fileName string) *os.File {
+	file, err := os.OpenFile("result/"+fileName+".txt", os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
 	if err != nil {
-		//plog.Info("Failed to open success.txt", plog.Params{"err": err})
+		fmt.Println("Failed to open success.txt", " err: ", err.Error())
 	}
 	return file
 }
@@ -18,14 +20,14 @@ func (fs Filesystem) OpenFile(absFilePath string) *os.File {
 func (fs Filesystem) CloseFile(file *os.File) {
 	err := file.Close()
 	if err != nil {
-		//plog.Info("Unable to close file: "+file.Name(), plog.Params{"err": err})
+		fmt.Println("Unable to close file: "+file.Name(), " err: ", err.Error())
 	}
 }
 
 func (fs Filesystem) Write(file *os.File, s string) {
 	_, err := file.WriteString(s + "\n")
 	if err != nil {
-		//plog.Info("Failed to write to success.txt", plog.Params{"err": err})
+		fmt.Println("Failed to write to success.txt", " err: ", err.Error())
 	}
 }
 
